@@ -6,7 +6,7 @@ var path = require('path');
 function connectToDB() {
     var mongoose = require('mongoose');
 
-    mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:27017/simulator', function (err) {
+    mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost:5901/simulator', function (err) {
         if (err) {
             console.log('connection error', err);
         } else {
