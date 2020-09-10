@@ -6,8 +6,8 @@ var config = require("../config.js");
 var authentication = require("../services/authentication.js");
 
 /**
- * Login uživatele
- * Princip autentikace uživatele
+ * Login user
+ * Logic of user authentication
  * http://code.tutsplus.com/tutorials/token-based-authentication-with-angularjs-nodejs--cms-22543
  */
 router.post('/login', function (req, res) {
@@ -15,7 +15,7 @@ router.post('/login', function (req, res) {
         if (err) {
             res.status(500);
             res.json({
-                errorMessage: 'Omlouváme se, ale nastala neočekávaná chyba.'
+                errorMessage: 'Sorry, but an unexpected error occurred.'
             });
         } else {
             if (user) {
@@ -27,7 +27,7 @@ router.post('/login', function (req, res) {
             } else {
                 res.status(401);
                 res.json({
-                    errorMessage: 'Nesprávné přihlašovací údaje.'
+                    errorMessage: 'Incorrect login information.'
                 });
             }
         }
@@ -42,13 +42,13 @@ router.post('/', function (req, res) {
         if (err) {
             res.status(500);
             res.json({
-                errorMessage: 'Omlouváme se, ale nastala neočekávaná chyba.'
+                errorMessage: 'Sorry, but an unexpected error occurred.'
             });
         } else {
             if (user) {
                 res.status(409);
                 res.json({
-                    errorMessage: 'Uživatel se stejným emailem je již zaregistrován.'
+                    errorMessage: 'A user with the same email is already registered.'
                 });
             } else {
                 var userModel = new User();
@@ -69,15 +69,15 @@ router.post('/', function (req, res) {
 });
 
 /**
- * Vrátí přihlášeného usera
- * Zatím je id ignorováno a je vyhledáván uživatel přímo podle tokenu přihlášeného uživatele.
+ * Returns the logged in user
+ * So far, the id is ignored and the user is searched directly according to the token of the logged in user.
  */
 router.get('/:id', authentication.ensureAuthorized, function (req, res) {
     User.findOne({token: req.token}, function (err, user) {
         if (err) {
             res.status(500);
             res.json({
-                errorMessage: 'Omlouváme se, ale nastala neočekávaná chyba.'
+                errorMessage: 'Sorry, but an unexpected error occurred.'
             });
         } else {
             res.status(200);
