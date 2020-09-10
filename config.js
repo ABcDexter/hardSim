@@ -1,7 +1,7 @@
 var path = require('path');
 
 /**
- * Připojení k databázi
+ * Database connection
  */
 function connectToDB() {
     var mongoose = require('mongoose');
@@ -16,7 +16,7 @@ function connectToDB() {
 }
 
 /**
- * Nastavení view enginu 
+* View engine settings
  */
 function setUpViewEngine(app) {
     // view engine setup
@@ -25,7 +25,7 @@ function setUpViewEngine(app) {
 }
 
 /**
- * Nastavení middleware component
+ * Middleware component settings
  */
 function setUpMiddleWare(app) {
     var cookieParser = require('cookie-parser');
@@ -42,20 +42,20 @@ function setUpMiddleWare(app) {
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, '/../client')));
 
-    //Nastavení zabezpečení pro API
+    //Security settings for API
     app.use(function (req, res, next) {
-        //Dovoluje přístup z jakékoli domény k API
+        //Allows access to the API from any domain
         res.setHeader('Access-Control-Allow-Origin', '*');
-        //Je možné posílat pouze POST, GET, PUT, DELETE requesty
+        //Only POST, GET, PUT, DELETE requests can be sent
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST', 'PUT', 'DELETE');
-        //X-Requested-With a content-type hlavičky jsou povoleny
+        //X-Requested-With and content-type headers are allowed
         res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
         next();
     });
 }
 
 module.exports = {
-    JWT_SECRET: 'ba51d54wq4d54wqdas4d5sa4d', //klíč serveru k vytvoření unikátního tokenu pro každého uživatele
+    JWT_SECRET: 'ba51d54wq4d54wqdas4d5sa4d', //server key to create a unique token for each user
     connectToDB: connectToDB,
     setUpViewEngine: setUpViewEngine,
     setUpMiddleWare: setUpMiddleWare

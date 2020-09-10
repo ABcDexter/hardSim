@@ -8,10 +8,10 @@ config.connectToDB(app);
 config.setUpViewEngine(app);
 config.setUpMiddleWare(app);
 
-//import routovacích souborů
+// import routing files
 var user = require('./routes/user');
 
-// routování
+// routing
 app.use('/rest-api/user/', user);
 
 // run Simulator app
